@@ -6,7 +6,7 @@
     <title>Josie's 8th Grade Class Trip Fundraiser - Class of 2026</title>
     <!-- Open Graph Meta Tags for Facebook -->
     <meta property="og:title" content="Epiphany Cathedral Catholic School - Josie's 8th Grade Class Trip Fundraiser - Class of 2026">
-    <meta property="og:description" content="Support my 8th Trip to Seacamp in Big Pine Key, FL! Reserve a square to contribute to my marine science adventure.">
+    <meta property="og:description" content="Support my 8th Grade Class Trip to Seacamp in Big Pine Key, FL! Reserve a square to contribute to my marine science adventure.">
     <meta property="og:image" content="https://find.acacamps.org/images/camp/image/main/phpfmBWiB.jpg">
     <meta property="og:url" content="https://roybotic.github.io/epiphany-camp/">
     <meta property="og:type" content="website">
@@ -20,6 +20,7 @@
         #total { font-size: 20px; margin: 20px; }
         button { padding: 8px; font-size: 16px; margin: 5px; }
         .payment-buttons { margin: 20px auto; }
+        .instructions { font-size: 16px; margin: 10px; }
     </style>
 </head>
 <body>
@@ -33,6 +34,7 @@
     </div>
     <div id="total">Total Reserved: 0 squares ($0)</div>
     <button onclick="clearAll()">Clear All Selections (Start Over)</button>
+    <div class="instructions">Click one or more squares to donate that amount (each number represents dollars).</div>
     <div class="grid" id="grid"></div>
 
     <script>
@@ -47,7 +49,7 @@
             squares.forEach((num, i) => {
                 const sq = document.createElement('div');
                 sq.className = `square ${colors[i]}`;
-                sq.textContent = num;
+                sq.textContent = `$${num}`;
                 sq.onclick = () => toggleSquare(num, sq, i);
                 if (reservations[num]) {
                     sq.classList.add('reserved');
@@ -63,7 +65,7 @@
                 delete reservations[num];
                 sq.classList.remove('reserved');
                 sq.className = `square ${colors[index]}`;
-                sq.textContent = num;
+                sq.textContent = `$${num}`;
             } else {
                 if (!currentName) {
                     currentName = prompt('Enter your name:');
