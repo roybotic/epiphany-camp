@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Epiphany Cathedral Catholic School 8th Grade Class Trip Fundraiser - Class of 2026</title>
+    <!-- Open Graph Meta Tags for Facebook -->
+    <meta property="og:title" content="Epiphany Cathedral Catholic School 8th Grade Class Trip Fundraiser - Class of 2026">
+    <meta property="og:description" content="Support our 8th Grade Class Trip to Seacamp in Big Pine Key, FL! Reserve a square to contribute to our marine science adventure.">
+    <meta property="og:image" content="https://find.acacamps.org/images/camp/image/main/phpfmBWiB.jpg">
+    <meta property="og:url" content="https://roybotic.github.io/epiphany-camp/">
+    <meta property="og:type" content="website">
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; max-width: 90%; margin: 20px auto; }
@@ -26,7 +32,7 @@
         <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
     </div>
     <div id="total">Total Reserved: 0 squares ($0)</div>
-    <button onclick="clearAll()">Clear All Selections (Start over)</button>
+    <button onclick="clearAll()">Clear All (Admin)</button>
     <div class="grid" id="grid"></div>
 
     <script>
