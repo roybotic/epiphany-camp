@@ -29,7 +29,7 @@
     <h3>Class of 2026</h3>
     <div class="payment-buttons">
         <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + calculateTotal() + '&note=EpiphanyFundraiser-Square' + getReservedSquares(), '_blank')">Pay with Venmo</button>
-        <button onclick="window.open('https://www.paypal.com/paypalme/roybotic/' + calculateTotal() + '?locale.x=en_US', '_blank')">Pay with PayPal</button>
+        <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%20You%20have%20reserved%20squares%20' + getReservedSquares() + '%20for%20a%20total%20donation%20of%20$' + calculateTotal() + '.%20Please%20provide%20your%20preferred%20payment%20method,%20and%20we%20will%20work%20with%20you%20to%20complete%20the%20payment%20offline.'">Email Roger and Cherie</button>
         <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
     </div>
     <div id="total">Total Reserved: 0 squares ($0)</div>
