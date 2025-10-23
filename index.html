@@ -2,95 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Epiphany Camp Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epiphany Cathedral Catholic School 8th Grade Class Trip Fundraiser - Class of 2026</title>
     <style>
-        /* Checkerboard background for form */
-        #paymentForm {
-            background: linear-gradient(45deg, #FFFF00 25%, #0000FF 25%, #0000FF 50%, #FFFF00 50%, #FFFF00 75%, #0000FF 75%);
-            background-size: 40px 40px; /* Adjusts checkerboard square size */
-            padding: 20px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-        /* Smaller checkboxes */
-        input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #0000FF; /* Blue checkbox */
-            border:2px solid #FFFF00; /* Yellow border */
-            margin: 5px;
-        }
-        label {
-            font-size: 16px;
-            margin: 10px 0;
-            display: block;
-            color: #000; /* Black text for readability */
-            background: rgba(255, 255, 255, 0.8); /* Semi-transparent white for contrast */
-            padding: 5px;
-            border-radius: 4px;
-        }
-        button {
-            padding: 8px 16px;
-            margin: 10px 5px;
-            cursor: pointer;
-            background-color: #0000FF; /* Blue buttons */
-            color: #FFFF00; /* Yellow text */
-            border: 2px solid #FFFF00; /* Yellow border */
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #3333FF; /* Lighter blue on hover */
-        }
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; max-width: 600px; margin: 20px auto; }
+        .square { width: 100px; height: 80px; border: 2px solid #000; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; }
+        .blue { background: blue; color: white; }
+        .yellow { background: yellow; color: black; }
+        .reserved { background: green; color: white; cursor: default; }
+        #total { font-size: 24px; margin: 20px; }
+        button { padding: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
-    <h1>Payment Calculator</h1>
-    <form id="paymentForm">
-        <label><input type="checkbox" value="10" name="item"> Item 1 ($10)</label>
-        <label><input type="checkbox" value="20" name="item"> Item 2 ($20)</label>
-        <label>Venmo Username: <input type="text" id="venmoUser" placeholder="@username" required></label>
-        <button type="submit" id="venmoBtn">Pay with Venmo</button>
-        <button type="submit" id="paypalBtn">Pay with PayPal</button>
-        <button type="submit" id="zelleBtn">Pay with Zelle</button>
-    </form>
+    <h1>Epiphany Cathedral Catholic School</h1>
+    <h2>8th Grade Class Trip Fundraiser</h2>
+    <h3>Class of 2026</h3>
+    <div id="total">Total Reserved: 0 squares ($0)</div>
+    <div class="grid" id="grid"></div>
+    <br>
+    <button onclick="clearAll()">Clear All (Admin)</button>
+    <br><br>
+    <div id="venmo"></div>
 
     <script>
-        const form = document.getElementById('paymentForm');
-        const venmoBtn = document.getElementById('venmoBtn');
-        const paypalBtn = document.getElementById('paypalBtn');
-        const zelleBtn = document.getElementById('zelleBtn');
+        const squares = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];
+        const colors = ['blue','yellow','blue','yellow','blue','yellow','blue','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue'];
+        let reservations = JSON.parse(localStorage.getItem('reservations')) || {};
 
-        function calculateTotal() {
-            const checkboxes = document.querySelectorAll('input[name="item"]:checked');
-            return Array.from(checkboxes).reduce((sum, cb) => sum + parseFloat(cb.value), 0);
+        function initGrid() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            squares.forEach((num, i) => {
+                const sq = document.createElement('div');
+                sq.className = `square ${colors[i]}`;
+                sq.textContent = num;
+                sq.onclick = () => reserveSquare(num, sq);
+                if (reservations[num]) {
+                    sq.classList.add('reserved');
+                    sq.textContent = reservations[num];
+                    sq.onclick = null;
+                }
+                grid.appendChild(sq);
+            });
+            updateTotal();
         }
 
-        venmoBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const total = calculateTotal();
-            const venmoUser = document.getElementById('venmoUser').value.replace('@', '');
-            if (total > 0 && venmoUser) {
-                const link = `https://venmo.com/${venmoUser}?txn=pay&amount=${total}&note=Epiphany Camp Payment`;
-                window.open(link, '_blank');
+        function reserveSquare(num, sq) {
+            const name = prompt('Enter your name:');
+            if (name) {
+                reservations[num] = name;
+                localStorage.setItem('reservations', JSON.stringify(reservations));
+                sq.classList.add('reserved');
+                sq.textContent = name;
+                sq.onclick = null;
+                updateTotal();
             }
-        });
+        }
 
-        paypalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const total = calculateTotal();
-            if (total > 0) {
-                const link = `https://www.paypal.com/paypalme/roybotic/${total}?locale.x=en_US`;
-                window.open(link, '_blank');
-            }
-        });
+        function updateTotal() {
+            const reserved = Object.keys(reservations).map(Number);
+            const total = reserved.reduce((sum, num) => sum + num, 0) * 1; // $1 * number
+            document.getElementById('total').textContent = `Total Reserved: ${reserved.length} squares ($${total})`;
+            const venmoLink = reserved.length > 0 ? `<a href="https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=${total}&note=EpiphanyFundraiser-Square${reserved.join(',')}" target="_blank">Pay Now</a>` : '';
+            document.getElementById('venmo').innerHTML = venmoLink;
+        }
 
-        zelleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const total = calculateTotal();
-            if (total > 0) {
-                alert(`Please send $${total} via Zelle to phone number 2066197841 for Epiphany Camp Payment.`);
+        function clearAll() {
+            if (confirm('Clear all reservations?')) {
+                reservations = {};
+                localStorage.removeItem('reservations');
+                initGrid();
             }
-        });
+        }
+
+        initGrid();
     </script>
 </body>
 </html>
