@@ -7,7 +7,7 @@
     <!-- Open Graph Meta Tags for Facebook -->
     <meta property="og:title" content="Epiphany Cathedral Catholic School - Josie's 8th Grade Class Trip Fundraiser - Class of 2026">
     <meta property="og:description" content="Support my 8th Grade Class Trip to Seacamp in Big Pine Key, FL! Reserve a square to contribute to my marine science adventure.">
-    <meta property="og:image" content="https://find.acacamps.org/images/camp/image/main/phpfmBWiB.jpg">
+    <meta property="og:image" content="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/15/e8/41/b2.jpg">
     <meta property="og:url" content="https://roybotic.github.io/epiphany-camp/">
     <meta property="og:type" content="website">
     <style>
@@ -16,7 +16,7 @@
         .square { width: 60px; height: 50px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
         .blue { background: blue; color: white; }
         .yellow { background: yellow; color: black; }
-        .reserved { background: green; color: white; cursor: pointer; }
+        .reserved { background: green; color: white; cursor: not-allowed; }
         #total { font-size: 20px; margin: 20px; }
         button { padding: 8px; font-size: 16px; margin: 5px; }
         .payment-buttons { margin: 20px auto; }
@@ -42,6 +42,7 @@
         const colors = ['blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow'];
         let reservations = JSON.parse(localStorage.getItem('reservations')) || {};
         let currentName = localStorage.getItem('currentName') || null;
+        const takenSquares = [10, 13, 25];
 
         function initGrid() {
             const grid = document.getElementById('grid');
@@ -50,10 +51,17 @@
                 const sq = document.createElement('div');
                 sq.className = `square ${colors[i]}`;
                 sq.textContent = `$${num}`;
-                sq.onclick = () => toggleSquare(num, sq, i);
-                if (reservations[num]) {
+                if (takenSquares.includes(num)) {
                     sq.classList.add('reserved');
-                    sq.textContent = reservations[num];
+                    sq.textContent = 'Taken';
+                    sq.style.cursor = 'not-allowed';
+                    sq.onclick = null; // Disable click
+                } else {
+                    sq.onclick = () => toggleSquare(num, sq, i);
+                    if (reservations[num]) {
+                        sq.classList.add('reserved');
+                        sq.textContent = reservations[num];
+                    }
                 }
                 grid.appendChild(sq);
             });
