@@ -12,17 +12,19 @@
     <meta property="og:type" content="website">
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; max-width: 90%; margin: 20px auto; }
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; max-width: 90%; margin: 20px auto; width: 320px; }
         .square { width: 60px; height: 50px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
         .blue { background: blue; color: white; }
         .yellow { background: yellow; color: black; }
         .reserved { background: green; color: white; cursor: not-allowed; }
+        #goal { font-size: 18px; font-weight: bold; margin-left: 20px; }
         #total { font-size: 20px; margin: 20px; }
         #claimed { font-size: 16px; margin: 10px; }
         button { padding: 8px; font-size: 16px; margin: 5px; }
         .payment-buttons { margin: 20px auto; }
         .instructions { font-size: 16px; margin: 10px; }
-        .progress-container { width: 80%; max-width: 600px; margin: 10px auto; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
+        .progress-goal-container { display: flex; align-items: center; justify-content: center; max-width: 90%; margin: 10px auto; }
+        .progress-container { width: 80%; max-width: 600px; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
         .progress-bar { height: 20px; background: green; color: white; text-align: right; padding-right: 5px; line-height: 20px; font-size: 14px; transition: width 0.3s ease; }
         .trip-info { max-width: 80%; margin: 20px auto; font-size: 16px; line-height: 1.5; }
     </style>
@@ -31,19 +33,22 @@
     <h1>Epiphany Cathedral Catholic School</h1>
     <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
     <h3>Class of 2026</h3>
-    <div class="instructions">Click one or more squares to set your donation amount. Then choose a payment method below.</div>
+    <div class="instructions">Click one or more squares to set your donation amount. Then choose a payment method below the grid.</div>
+    <button onclick="clearAll()">Clear All Selections (Start Over)</button>
+    <div id="total">Total of my pledges: 0 squares ($0)</div>
+    <div class="grid" id="grid"></div>
     <div class="payment-buttons">
         <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + calculateTotal() + '&note=EpiphanyFundraiser-Square' + getReservedSquares(), '_blank')">Pay with Venmo</button>
         <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + getReservedSquares() + '%0A- Total%20Value: $' + calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
         <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
     </div>
-    <div id="total">Total of my pledges: 0 squares ($0)</div>
     <div id="claimed">Claimed Squares: 18 squares ($548)</div>
-    <div class="progress-container">
-        <div id="progress-bar" class="progress-bar" style="width: 45.67%;">45.67% ($548/$1200)</div>
+    <div class="progress-goal-container">
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar" style="width: 43%;">43% ($548)</div>
+        </div>
+        <div id="goal">Fundraising Goal: $1275</div>
     </div>
-    <button onclick="clearAll()">Clear All Selections (Start Over)</button>
-    <div class="grid" id="grid"></div>
     <div class="trip-info">
         <h3>About Josie's Seacamp Adventure</h3>
         <p>Join Josie on an exciting marine science adventure at Seacamp in Big Pine Key, FL! This trip is a unique opportunity for young people to study and live alongside wildlife in the Florida Keys. Through hands-on activities like snorkeling, SCUBA, and sailing, Josie will explore vibrant ecosystems and get closer than ever to marine life. As Seacamp describes, “Our unique program blends hands-on marine science with adventure, allowing campers to explore the Florida Keys’ ecosystems.” Your support helps make this unforgettable educational experience possible!</p>
@@ -74,7 +79,7 @@
             { num: 43, name: 'Tio & Tia' },
             { num: 28, name: 'Tio & Tia' }
         ];
-        const FUNDRAISING_GOAL = 1200;
+        const FUNDRAISING_GOAL = 1275;
 
         function initGrid() {
             const grid = document.getElementById('grid');
@@ -137,10 +142,10 @@
             const claimed = takenSquares.map(square => square.num);
             const claimedTotal = claimed.reduce((sum, num) => sum + num, 0) || 0;
             document.getElementById('claimed').textContent = `Claimed Squares: ${claimed.length} squares ($${claimedTotal})`;
-            const progressPercent = ((claimedTotal / FUNDRAISING_GOAL) * 100).toFixed(2);
+            const progressPercent = Math.round((claimedTotal / FUNDRAISING_GOAL) * 100);
             const progressBar = document.getElementById('progress-bar');
             progressBar.style.width = `${progressPercent}%`;
-            progressBar.textContent = `${progressPercent}% ($${claimedTotal}/$${FUNDRAISING_GOAL})`;
+            progressBar.textContent = `${progressPercent}% ($${claimedTotal})`;
         }
 
         function clearAll() {
