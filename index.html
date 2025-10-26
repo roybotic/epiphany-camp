@@ -35,7 +35,7 @@
         <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
     </div>
     <div id="total">Total of my pledges: 0 squares ($0)</div>
-    <div id="claimed">Claimed Squares: 8 squares ($132)</div>
+    <div id="claimed">Claimed Squares: 9 squares ($148)</div>
     <button onclick="clearAll()">Clear All Selections (Start Over)</button>
     <div class="grid" id="grid"></div>
 
@@ -45,14 +45,15 @@
         let reservations = JSON.parse(localStorage.getItem('reservations')) || {};
         let currentName = localStorage.getItem('currentName') || null;
         const takenSquares = [
-            { num: 10, name: 'Cami' },
-            { num: 13, name: 'Cami' },
             { num: 25, name: 'Cami' },
-            { num: 11, name: 'Juli' },
-            { num: 23, name: 'Gail' },
+            { num: 1, name: 'Coleen' },
+            { num: 24, name: 'Coleen' },
             { num: 15, name: 'Jorge' },
             { num: 17, name: 'Jorge' },
-            { num: 18, name: 'Jorge' }
+            { num: 18, name: 'Jorge' },
+            { num: 35, name: 'Jorge' },
+            { num: 11, name: 'Juli' },
+            { num: 23, name: 'Gail' }
         ];
 
         function initGrid() {
