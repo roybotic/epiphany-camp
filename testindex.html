@@ -22,6 +22,9 @@
         button { padding: 8px; font-size: 16px; margin: 5px; }
         .payment-buttons { margin: 20px auto; }
         .instructions { font-size: 16px; margin: 10px; }
+        .progress-container { width: 80%; max-width: 600px; margin: 10px auto; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
+        .progress-bar { height: 20px; background: green; color: white; text-align: right; padding-right: 5px; line-height: 20px; font-size: 14px; transition: width 0.3s ease; }
+        .trip-info { max-width: 80%; margin: 20px auto; font-size: 16px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -36,8 +39,15 @@
     </div>
     <div id="total">Total of my pledges: 0 squares ($0)</div>
     <div id="claimed">Claimed Squares: 18 squares ($548)</div>
+    <div class="progress-container">
+        <div id="progress-bar" class="progress-bar" style="width: 45.67%;">45.67% ($548/$1200)</div>
+    </div>
     <button onclick="clearAll()">Clear All Selections (Start Over)</button>
     <div class="grid" id="grid"></div>
+    <div class="trip-info">
+        <h3>About Josie's Seacamp Adventure</h3>
+        <p>Join Josie on an exciting marine science adventure at Seacamp in Big Pine Key, FL! This trip is a unique opportunity for young people to study and live alongside wildlife in the Florida Keys. Through hands-on activities like snorkeling, SCUBA, and sailing, Josie will explore vibrant ecosystems and get closer than ever to marine life. As Seacamp describes, “Our unique program blends hands-on marine science with adventure, allowing campers to explore the Florida Keys’ ecosystems.” Your support helps make this unforgettable educational experience possible!</p>
+    </div>
 
     <script>
         const squares = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];
@@ -64,6 +74,7 @@
             { num: 43, name: 'Tio & Tia' },
             { num: 28, name: 'Tio & Tia' }
         ];
+        const FUNDRAISING_GOAL = 1200;
 
         function initGrid() {
             const grid = document.getElementById('grid');
@@ -126,6 +137,10 @@
             const claimed = takenSquares.map(square => square.num);
             const claimedTotal = claimed.reduce((sum, num) => sum + num, 0) || 0;
             document.getElementById('claimed').textContent = `Claimed Squares: ${claimed.length} squares ($${claimedTotal})`;
+            const progressPercent = ((claimedTotal / FUNDRAISING_GOAL) * 100).toFixed(2);
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}% ($${claimedTotal}/$${FUNDRAISING_GOAL})`;
         }
 
         function clearAll() {
