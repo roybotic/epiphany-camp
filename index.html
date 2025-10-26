@@ -35,7 +35,7 @@
         <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
     </div>
     <div id="total">Total of my pledges: 0 squares ($0)</div>
-    <div id="claimed">Claimed Squares: 0 squares ($0)</div>
+    <div id="claimed">Claimed Squares: 8 squares ($132)</div>
     <button onclick="clearAll()">Clear All Selections (Start Over)</button>
     <div class="grid" id="grid"></div>
 
@@ -50,8 +50,9 @@
             { num: 25, name: 'Cami' },
             { num: 11, name: 'Juli' },
             { num: 23, name: 'Gail' },
-            { num: 1, name: 'Colleen' },
-            { num: 24, name: 'Colleen' }
+            { num: 15, name: 'Jorge' },
+            { num: 17, name: 'Jorge' },
+            { num: 18, name: 'Jorge' }
         ];
 
         function initGrid() {
@@ -66,7 +67,7 @@
                     sq.classList.add('reserved');
                     sq.textContent = taken.name;
                     sq.style.cursor = 'not-allowed';
-                    sq.onclick = null; // Disable click
+                    sq.onclick = null;
                 } else {
                     sq.onclick = () => toggleSquare(num, sq, i);
                     if (reservations[num]) {
@@ -101,19 +102,19 @@
 
         function calculateTotal() {
             const reserved = Object.keys(reservations).map(Number);
-            return reserved.reduce((sum, num) => sum + num, 0) * 1;
+            return reserved.reduce((sum, num) => sum + num, 0) || 0;
         }
 
         function getReservedSquares() {
-            return Object.keys(reservations).map(Number).join(',');
+            return Object.keys(reservations).map(Number).join(',') || 'None';
         }
 
         function updateTotal() {
             const reserved = Object.keys(reservations).map(Number);
-            const total = reserved.reduce((sum, num) => sum + num, 0) * 1;
+            const total = reserved.reduce((sum, num) => sum + num, 0) || 0;
             document.getElementById('total').textContent = `Total of my pledges: ${reserved.length} squares ($${total})`;
             const claimed = takenSquares.map(square => square.num);
-            const claimedTotal = claimed.reduce((sum, num) => sum + num, 0) * 1;
+            const claimedTotal = claimed.reduce((sum, num) => sum + num, 0) || 0;
             document.getElementById('claimed').textContent = `Claimed Squares: ${claimed.length} squares ($${claimedTotal})`;
         }
 
