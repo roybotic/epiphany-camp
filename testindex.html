@@ -11,11 +11,8 @@
     <meta property="og:url" content="https://roybotic.github.io/epiphany-camp/">
     <meta property="og:type" content="website">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; display: flex; }
-        .container { display: flex; width: 100%; max-width: 1200px; margin: 0 auto; }
-        .thermometer { width: 100px; margin-right: 20px; }
-        .grid-container { flex-grow: 1; }
-        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; max-width: 100%; margin: 20px auto; }
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; max-width: 90%; margin: 20px auto; }
         .square { width: 60px; height: 50px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
         .blue { background: blue; color: white; }
         .yellow { background: yellow; color: black; }
@@ -25,30 +22,22 @@
         button { padding: 8px; font-size: 16px; margin: 5px; }
         .payment-buttons { margin: 20px auto; }
         .instructions { font-size: 16px; margin: 10px; }
-        #thermometer-chart { width: 60px; height: 300px; margin: 20px auto; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="thermometer">
-            <canvas id="thermometer-chart"></canvas>
-        </div>
-        <div class="grid-container">
-            <h1>Epiphany Cathedral Catholic School</h1>
-            <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
-            <h3>Class of 2026</h3>
-            <div class="instructions">Click one or more squares to set your donation amount. Then choose a payment method below.</div>
-            <div class="payment-buttons">
-                <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + calculateTotal() + '&note=EpiphanyFundraiser-Square' + getReservedSquares(), '_blank')">Pay with Venmo</button>
-                <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + getReservedSquares() + '%0A- Total%20Value: $' + calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
-                <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
-            </div>
-            <div id="total">Total of my pledges: 0 squares ($0)</div>
-            <div id="claimed">Claimed Squares: 19 squares ($648)</div>
-            <button onclick="clearAll()">Clear All Selections (Start Over)</button>
-            <div class="grid" id="grid"></div>
-        </div>
+    <h1>Epiphany Cathedral Catholic School</h1>
+    <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
+    <h3>Class of 2026</h3>
+    <div class="instructions">Click one or more squares to set your donation amount. Then choose a payment method below.</div>
+    <div class="payment-buttons">
+        <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + calculateTotal() + '&note=EpiphanyFundraiser-Square' + getReservedSquares(), '_blank')">Pay with Venmo</button>
+        <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + getReservedSquares() + '%0A- Total%20Value: $' + calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
+        <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
     </div>
+    <div id="total">Total of my pledges: 0 squares ($0)</div>
+    <div id="claimed">Claimed Squares: 21 squares ($598)</div>
+    <button onclick="clearAll()">Clear All Selections (Start Over)</button>
+    <div class="grid" id="grid"></div>
 
     <script>
         const squares = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];
@@ -65,16 +54,20 @@
             { num: 35, name: 'Jorge' },
             { num: 11, name: 'Juli' },
             { num: 23, name: 'Gail' },
+            { num: 10, name: 'Tio & Tia' },
+            { num: 13, name: 'Tio & Tia' },
+            { num: 27, name: 'Tio & Tia' },
             { num: 50, name: 'Tio & Tia' },
             { num: 49, name: 'Tio & Tia' },
             { num: 48, name: 'Tio & Tia' },
             { num: 47, name: 'Tio & Tia' },
-            { num: 46, name: 'Tio & Tia' },
+            {
+
+ num: 46, name: 'Tio & Tia' },
             { num: 44, name: 'Tio & Tia' },
             { num: 43, name: 'Tio & Tia' },
             { num: 42, name: 'Tio & Tia' },
-            { num: 41, name: 'Tio & Tia' },
-            { num: 40, name: 'Tio & Tia' }
+            { num: 41, name: 'Tio & Tia' }
         ];
 
         function initGrid() {
@@ -138,47 +131,6 @@
             const claimed = takenSquares.map(square => square.num);
             const claimedTotal = claimed.reduce((sum, num) => sum + num, 0) || 0;
             document.getElementById('claimed').textContent = `Claimed Squares: ${claimed.length} squares ($${claimedTotal})`;
-            updateThermometer(claimedTotal);
-        }
-
-        function updateThermometer(claimedTotal) {
-            const ctx = document.getElementById('thermometer-chart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Progress'],
-                    datasets: [{
-                        label: 'Raised',
-                        data: [claimedTotal],
-                        backgroundColor: '#ff4040',
-                        borderColor: '#cc0000',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 1200,
-                            ticks: {
-                                display: false
-                            },
-                            title: {
-                                display: true,
-                                text: 'Goal: $1200'
-                            }
-                        },
-                        x: {
-                            display: false
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
-                }
-            });
         }
 
         function clearAll() {
@@ -193,6 +145,5 @@
 
         initGrid();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
