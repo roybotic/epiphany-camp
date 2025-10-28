@@ -32,7 +32,7 @@
     <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
     <h3>Class of 2026</h3>
     <div class="progress-container">
-        <div id="progress-bar" class="progress-bar" style="width: 46%;">46% ($590)</div>
+        <div id="progress-bar" class="progress-bar" style="width: 48%;">$620</div>
     </div>
     <div id="goal">Fundraising Goal: $1275</div>
     <div class="instructions">Click one or more squares to set your donation amount. Then choose a payment method below the grid.</div>
@@ -74,7 +74,14 @@
             { num: 44, name: 'Tio & Tia' },
             { num: 43, name: 'Tio & Tia' },
             { num: 28, name: 'Tio & Tia' },
-            { num: 42, name: 'Scott' }
+            { num: 42, name: 'Scott' },
+            { num: 20, name: 'Eric' },
+            { num: 8, name: 'Anthony' },
+            { num: 7, name: 'Anthony' },
+            { num: 5, name: 'Anthony' },
+            { num: 6, name: 'Chris' },
+            { num: 3, name: 'Chris' },
+            { num: 1, name: 'Chris' }
         ];
         const FUNDRAISING_GOAL = 1275;
 
@@ -142,7 +149,7 @@
             const progressPercent = Math.round((claimedTotal / FUNDRAISING_GOAL) * 100);
             const progressBar = document.getElementById('progress-bar');
             progressBar.style.width = `${progressPercent}%`;
-            progressBar.textContent = `${progressPercent}% ($${claimedTotal})`;
+            progressBar.textContent = `$${claimedTotal}`;
         }
 
         function clearAll() {
