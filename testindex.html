@@ -229,6 +229,33 @@
             margin-top: 0;
             font-size: 1.1rem;
         }
+        .sponsors {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: 28px 0;
+            text-align: left;
+        }
+        .sponsors h3 {
+            text-align: center;
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        .sponsor-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0;
+            font-size: 0.95rem;
+        }
+        .sponsor-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .sponsor-list li:last-child {
+            border-bottom: none;
+        }
         @media (max-width: 480px) {
             body { padding: 12px; }
             h1 { font-size: 1.6rem; }
@@ -255,8 +282,8 @@
             }
             .square .amount { font-size: 14px; }
             .square .name { font-size: 9px; }
-            .trip-info { padding: 16px; font-size: 0.85rem; }
-            .trip-info h3 { font-size: 1rem; }
+            .trip-info, .sponsors { padding: 16px; font-size: 0.85rem; }
+            .trip-info h3, .sponsors h3 { font-size: 1rem; }
         }
         @media (max-width: 360px) {
             .grid { grid-template-columns: repeat(4, 1fr); }
@@ -270,7 +297,7 @@
         <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
         <h3>Class of 2026</h3>
         <div class="progress-container">
-            <div id="progress-bar" class="progress-bar" style="width: 48%;">$620</div>
+            <div id="progress-bar" class="progress-bar" style="width: 48%;">$610</div>
         </div>
         <div id="goal">Fundraising Goal: $1275</div>
         <div class="instructions">Click one or more blue & yellow squares to choose your donation amount. Then choose a payment method below the grid.</div>
@@ -299,6 +326,22 @@
             <h3>About Josie's Seacamp Adventure</h3>
             <p>Join Josie on an exciting marine science adventure at Seacamp in Big Pine Key, FL! This trip is a unique opportunity for young people to study and live alongside wildlife in the Florida Keys. Through hands-on activities like snorkeling, SCUBA, and sailing, Josie will explore vibrant ecosystems and get closer than ever to marine life. As Seacamp describes, “Our unique program blends hands-on marine science with adventure, allowing campers to explore the Florida Keys’ ecosystems.” Your support helps make this unforgettable educational experience possible!</p>
         </div>
+
+        <div class="sponsors">
+            <h3>Thank You to Our Sponsors</h3>
+            <ul class="sponsor-list">
+                <li><strong>Anthony</strong> - $20</li>
+                <li><strong>Cami</strong> - $25</li>
+                <li><strong>Chris</strong> - $10</li>
+                <li><strong>Coleen</strong> - $25</li>
+                <li><strong>Eric</strong> - $20</li>
+                <li><strong>Gail</strong> - $23</li>
+                <li><strong>Jorge</strong> - $85</li>
+                <li><strong>Juli</strong> - $11</li>
+                <li><strong>Scott</strong> - $42</li>
+                <li><strong>Tio & Tia</strong> - $349</li>
+            </ul>
+        </div>
     </div>
 
     <script>
@@ -308,8 +351,8 @@
         let currentName = localStorage.getItem('currentName') || null;
         const takenSquares = [
             { num: 25, name: 'Cami' },
-            { num: 1, name: 'Coleen' },
-            { num: 24, name: 'Coleen' },
+            { num: 4, name: 'Coleen' },
+            { num: 21, name: 'Coleen' },
             { num: 15, name: 'Jorge' },
             { num: 17, name: 'Jorge' },
             { num: 18, name: 'Jorge' },
@@ -330,8 +373,7 @@
             { num: 8, name: 'Anthony' },
             { num: 7, name: 'Anthony' },
             { num: 5, name: 'Anthony' },
-            { num: 6, name: 'Chris' },
-            { num: 3, name: 'Chris' },
+            { num: 9, name: 'Chris' },
             { num: 1, name: 'Chris' }
         ];
         const FUNDRAISING_GOAL = 1275;
