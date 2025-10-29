@@ -77,7 +77,7 @@
         button {
             padding: 10px 16px;
             font-size: 0.95rem;
-            font-weight: Gra600;
+            font-weight: 600;
             margin: 6px;
             border: none;
             border-radius: var(--radius);
@@ -97,24 +97,36 @@
             display: block;
             width: fit-content;
         }
-        .payment-buttons button {
-            background: var(--primary);
-            color: white;
+        .payment-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px 0;
+        }
+        .payment-row button {
             flex: 1;
             min-width: 120px;
-            font-size: 0.9rem;
-            padding: 10px 14px;
+            background: var(--primary);
+            color: white;
         }
-        .payment-buttons button:hover {
+        .payment-row button:hover {
             background: #1d4ed8;
             transform: translateY(-1px);
         }
-        .payment-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
+        .payment-email {
+            margin: 16px 0;
+        }
+        .payment-email button {
+            background: #6b7280;
+            color: white;
+            width: 70%;
+            max-width: 320px;
+            margin: 0 auto;
+            display: block;
+        }
+        .payment-email button:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
         }
         .pledge-header {
             font-size: 1.3rem;
@@ -230,7 +242,8 @@
             .pledge-count { font-size: 0.75rem; }
             button { padding: 8px 12px; font-size: 0.85rem; }
             button.clear-small { padding: 4px 8px; font-size: 0.7rem; }
-            .payment-buttons button { min-width: 100px; padding: 8px 12px; font-size: 0.8rem; }
+            .payment-row button { min-width: 100px; padding: 8px 12px; font-size: 0.8rem; }
+            .payment-email button { width: 85%; padding: 8px 12px; font-size: 0.8rem; }
             .grid {
                 gap: 6px;
                 padding: 12px;
@@ -274,11 +287,14 @@
         <div class="pledge-amount" id="pledge-amount">$0</div>
         <div class="pledge-count" id="pledge-count">0 squares selected</div>
 
-        <div class="payment-buttons">
+        <div class="payment-row">
             <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + calculateTotal() + '&note=EpiphanyFundraiser-Square' + getReservedSquares(), '_blank')">Pay with Venmo</button>
-            <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + getReservedSquares() + '%0A- Total%20Value: $' + calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
             <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
         </div>
+        <div class="payment-email">
+            <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + getReservedSquares() + '%0A- Total%20Value: $' + calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
+        </div>
+
         <div class="trip-info">
             <h3>About Josie's Seacamp Adventure</h3>
             <p>Join Josie on an exciting marine science adventure at Seacamp in Big Pine Key, FL! This trip is a unique opportunity for young people to study and live alongside wildlife in the Florida Keys. Through hands-on activities like snorkeling, SCUBA, and sailing, Josie will explore vibrant ecosystems and get closer than ever to marine life. As Seacamp describes, “Our unique program blends hands-on marine science with adventure, allowing campers to explore the Florida Keys’ ecosystems.” Your support helps make this unforgettable educational experience possible!</p>
