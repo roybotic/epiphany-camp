@@ -473,7 +473,7 @@
             },
             
             clearAll() {
-                if (confirm('Clear all reservations?')) {
+                if (confirm('This will clear your current selections.')) {
                     this.state.reservations = {};
                     this.state.currentName = null;
                     localStorage.removeItem('reservations');
