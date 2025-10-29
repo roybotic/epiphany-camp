@@ -13,7 +13,9 @@
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; max-width: 90%; margin: 20px auto; width: 320px; }
-        .square { width: 60px; height: 50px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
+        .square { width: 60px; height: 50px; border: 1px solid #000; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; line-height: 1.2; }
+        .square .amount { font-weight: bold; }
+        .square .name { font-size: 10px; }
         .blue { background: blue; color: white; }
         .yellow { background: yellow; color: black; }
         .reserved { background: white; color: black; cursor: not-allowed; }
@@ -91,18 +93,28 @@
             squares.forEach((num, i) => {
                 const sq = document.createElement('div');
                 sq.className = `square ${colors[i]}`;
-                sq.textContent = `$${num}`;
+                const amountSpan = document.createElement('div');
+                amountSpan.className = 'amount';
+                amountSpan.textContent = `$${num}`;
+                sq.appendChild(amountSpan);
+                
                 const taken = takenSquares.find(square => square.num === num);
                 if (taken) {
                     sq.classList.add('reserved');
-                    sq.textContent = taken.name;
+                    const nameSpan = document.createElement('div');
+                    nameSpan.className = 'name';
+                    nameSpan.textContent = taken.name;
+                    sq.appendChild(nameSpan);
                     sq.style.cursor = 'not-allowed';
                     sq.onclick = null;
                 } else {
                     sq.onclick = () => toggleSquare(num, sq, i);
                     if (reservations[num]) {
                         sq.classList.add('reserved');
-                        sq.textContent = reservations[num];
+                        const nameSpan = document.createElement('div');
+                        nameSpan.className = 'name';
+                        nameSpan.textContent = reservations[num];
+                        sq.appendChild(nameSpan);
                     }
                 }
                 grid.appendChild(sq);
@@ -114,8 +126,11 @@
             if (reservations[num]) {
                 delete reservations[num];
                 sq.classList.remove('reserved');
-                sq.className = `square ${colors[index]}`;
-                sq.textContent = `$${num}`;
+                sq.innerHTML = '';
+                const amountSpan = document.createElement('div');
+                amountSpan.className = 'amount';
+                amountSpan.textContent = `$${num}`;
+                sq.appendChild(amountSpan);
             } else {
                 if (!currentName) {
                     currentName = prompt('Enter your name:');
@@ -124,7 +139,15 @@
                 }
                 reservations[num] = currentName;
                 sq.classList.add('reserved');
-                sq.textContent = currentName;
+                sq.innerHTML = '';
+                const amountSpan = document.createElement('div');
+                amountSpan.className = 'amount';
+                amountSpan.textContent = `$${num}`;
+                sq.appendChild(amountSpan);
+                const nameSpan = document.createElement('div');
+                nameSpan.className = 'name';
+                nameSpan.textContent = currentName;
+                sq.appendChild(nameSpan);
             }
             localStorage.setItem('reservations', JSON.stringify(reservations));
             updateTotal();
