@@ -32,10 +32,14 @@
             color: var(--text);
             margin: 0;
             padding: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
+            flex: 1;
         }
         h1, h2, h3 {
             margin: 0.5em 0;
@@ -242,6 +246,10 @@
         .sponsor-list li:last-child {
             border-bottom: none;
         }
+        .footer-sponsors {
+            margin-top: auto;
+            padding-top: 20px;
+        }
         @media (max-width: 480px) {
             body { padding: 12px; }
             h1 { font-size: 1.6rem; }
@@ -315,7 +323,7 @@
                 { name: 'Jorge', amount: 50 },
                 { name: 'Juli', amount: 11 },
                 { name: 'Scott', amount: 42 },
-                { name: 'Tio & Tia', amount: 349 }
+                { name: 'Tio & Tia', amount: 400 }
             ].sort((a, b) => a.name.localeCompare(b.name))
         };
 
@@ -391,7 +399,7 @@
         `;
 
         const renderSponsors = () => {
-            let html = '<div class="sponsors"><h3>Thank You to Our Sponsors</h3><ul class="sponsor-list">';
+            let html = '<div class="sponsors footer-sponsors"><h3>Thank You to Our Sponsors</h3><ul class="sponsor-list">';
             CONFIG.sponsors.forEach(s => {
                 html += `<li><strong>${s.name}</strong> - $${s.amount}</li>`;
             });
@@ -410,7 +418,6 @@
                 ${renderSponsors()}
             `;
             
-            // Cache elements after render
             elements.progressBar = document.getElementById('progress-bar');
             elements.totalAmount = document.getElementById('total-amount');
             elements.totalCount = document.getElementById('total-count');
