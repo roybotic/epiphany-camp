@@ -4,52 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Josie's 8th Grade Class Trip Fundraiser - Class of 2026</title>
-    <!-- Open Graph Meta Tags for Facebook -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Epiphany Cathedral Catholic School - Josie's 8th Grade Class Trip Fundraiser - Class of 2026">
     <meta property="og:description" content="Support my 8th Grade Class Trip to Seacamp in Big Pine Key, FL! Reserve a colored square to contribute to my marine science adventure.">
     <meta property="og:image" content="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/15/e8/41/b2.jpg">
     <meta property="og:url" content="https://roybotic.github.io/epiphany-camp/">
     <meta property="og:type" content="website">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; max-width: 90%; margin: 20px auto; width: 320px; }
-        .square { width: 60px; height: 50px; border: 1px solid #000; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; line-height: 1.2; }
-        .square .amount { font-weight: bold; }
-        .square .name { font-size: 10px; }
-        .blue { background: blue; color: white; }
-        .yellow { background: yellow; color: black; }
-        .reserved { background: white; color: black; cursor: not-allowed; }
-        #goal { font-size: 18px; font-weight: bold; margin: 10px auto; }
-        #total, #pledge-total { font-size: 20px; margin: 20px; }
-        button { padding: 8px; font-size: 16px; margin: 5px; }
-        .payment-buttons { margin: 20px auto; }
-        .instructions { font-size: 16px; margin: 10px; }
-        .progress-container { width: 80%; max-width: 600px; margin: 10px auto; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
-        .progress-bar { height: 20px; background: green; color: white; text-align: right; padding-right: 5px; line-height: 20px; font-size: 14px; transition: width 0.3s ease; }
-        .trip-info { max-width: 80%; margin: 20px auto; font-size: 16px; line-height: 1.5; }
+        :root {
+            --primary: #2563eb;
+            --secondary: #facc15;
+            --success: #10b981;
+            --bg: #f9fafb;
+            --text: #1f2937;
+            --light: #f3f4f6;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2, h3 {
+            margin: 0.5em 0;
+            font-weight: 700;
+        }
+        h1 { font-size: 2rem; color: var(--primary); }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.25rem; color: #4b5563; }
+        .progress-container {
+            width: 100%;
+            background: var(--light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
+        }
+        .progress-bar {
+            height: 32px;
+            background: var(--success);
+            color: white;
+            text-align: right;
+            padding: 0 12px;
+            line-height: 32px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: width 0.4s ease;
+        }
+        #goal {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 8px 0 16px;
+        }
+        .instructions {
+            font-size: 1rem;
+            color: #6b7280;
+            margin: 16px 0;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 8px;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+        }
+        button.clear {
+            background: #ef4444;
+            color: white;
+        }
+        button.clear:hover { background: #dc2626; }
+        .payment-buttons button {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+            min-width: 140px;
+        }
+        .payment-buttons button:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+        .payment-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        #total, #pledge-total {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 16px 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-width: 360px;
+            margin: 24px auto;
+            padding: 16px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .square {
+            width: 100%;
+            height: 60px;
+            border: none;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .square:hover:not(.reserved) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .square .amount {
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .square .name {
+            font-size: 10px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .blue { background: var(--primary); color: white; }
+        .yellow { background: var(--secondary); color: #1f2937; }
+        .reserved {
+            background: var(--white);
+            color: var(--text);
+            cursor: not-allowed;
+            border: 2px solid #e5e7eb;
+        }
+        .trip-info {
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: 32px 0;
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+        .trip-info h3 {
+            text-align: center;
+            color: var(--primary);
+            margin-top: 0;
+        }
+        @media (max-width: 500px) {
+            .grid { gap: 6px; padding: 12px; }
+            .square { height: 55px; font-size: 12px; }
+            .square .amount { font-size: 13px; }
+            button { padding: 10px 16px; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
-    <h1>Epiphany Cathedral Catholic School</h1>
-    <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
-    <h3>Class of 2026</h3>
-    <div class="progress-container">
-        <div id="progress-bar" class="progress-bar" style="width: 48%;">$620</div>
-    </div>
-    <div id="goal">Fundraising Goal: $1275</div>
-    <div class="instructions">Click one or more blue & yellow squares to choose your donation amount. Then choose a payment method below the grid.</div>
-    <button onclick="clearAll()">Clear All Selections (Start Over)</button>
-    <div id="total">Total of my pledges: 0 squares ($0)</div>
-    <div class="grid" id="grid"></div>
-    <div id="pledge-total">Total of my pledges: 0 squares ($0)</div>
-    <div class="payment-buttons">
-        <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + calculateTotal() + '&note=EpiphanyFundraiser-Square' + getReservedSquares(), '_blank')">Pay with Venmo</button>
-        <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + getReservedSquares() + '%0A- Total%20Value: $' + calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
-        <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
-    </div>
-    <div class="trip-info">
-        <h3>About Josie's Seacamp Adventure</h3>
-        <p>Join Josie on an exciting marine science adventure at Seacamp in Big Pine Key, FL! This trip is a unique opportunity for young people to study and live alongside wildlife in the Florida Keys. Through hands-on activities like snorkeling, SCUBA, and sailing, Josie will explore vibrant ecosystems and get closer than ever to marine life. As Seacamp describes, “Our unique program blends hands-on marine science with adventure, allowing campers to explore the Florida Keys’ ecosystems.” Your support helps make this unforgettable educational experience possible!</p>
+    <div class="container">
+        <h1>Epiphany Cathedral Catholic School</h1>
+        <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
+        <h3>Class of 2026</h3>
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar" style="width: 48%;">$620</div>
+        </div>
+        <div id="goal">Fundraising Goal: $1275</div>
+        <div class="instructions">Click one or more blue & yellow squares to choose your donation amount. Then choose a payment method below the grid.</div>
+        <button class="clear" onclick="clearAll()">Clear All Selections (Start Over)</button>
+        <div id="total">Total of my pledges: 0 squares ($0)</div>
+        <div class="grid" id="grid"></div>
+        <div id="pledge-total">Total of my pledges: 0 squares ($0)</div>
+        <div class="payment-buttons">
+            <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + calculateTotal() + '&note=EpiphanyFundraiser-Square' + getReservedSquares(), '_blank')">Pay with Venmo</button>
+            <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + getReservedSquares() + '%0A- Total%20Value: $' + calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
+            <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
+        </div>
+        <div class="trip-info">
+            <h3>About Josie's Seacamp Adventure</h3>
+            <p>Join Josie on an exciting marine science adventure at Seacamp in Big Pine Key, FL! This trip is a unique opportunity for young people to study and live alongside wildlife in the Florida Keys. Through hands-on activities like snorkeling, SCUBA, and sailing, Josie will explore vibrant ecosystems and get closer than ever to marine life. As Seacamp describes, “Our unique program blends hands-on marine science with adventure, allowing campers to explore the Florida Keys’ ecosystems.” Your support helps make this unforgettable educational experience possible!</p>
+        </div>
     </div>
 
     <script>
@@ -105,7 +261,6 @@
                     nameSpan.className = 'name';
                     nameSpan.textContent = taken.name;
                     sq.appendChild(nameSpan);
-                    sq.style.cursor = 'not-allowed';
                     sq.onclick = null;
                 } else {
                     sq.onclick = () => toggleSquare(num, sq, i);
