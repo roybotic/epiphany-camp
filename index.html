@@ -23,6 +23,7 @@
             --white: #ffffff;
             --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             --radius: 12px;
+            --selected-border: #ef4444;
         }
         body {
             font-family: 'Poppins', sans-serif;
@@ -135,10 +136,11 @@
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
         }
-        .square:hover:not(.reserved) {
+        .square:hover:not(.reserved):not(.selected) {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
@@ -158,6 +160,43 @@
             color: var(--text);
             cursor: not-allowed;
             border: 2px solid #e5e7eb;
+        }
+        .selected {
+            background: var(--white);
+            color: var(--text);
+            border: 3px solid var(--selected-border);
+            box-shadow: 0 0 0 1px var(--selected-border);
+            animation: selectPulse 0.6s ease-out;
+        }
+        @keyframes selectPulse {
+            0% {
+                transform: scale(1);
+                border-color: var(--selected-border);
+                box-shadow: 0 0 0 1px var(--selected-border);
+            }
+            50% {
+                transform: scale(1.05);
+                border-color: #fca5a5;
+                box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.3);
+            }
+            100% {
+                transform: scale(1);
+                border-color: var(--selected-border);
+                box-shadow: 0 0 0 1px var(--selected-border);
+            }
+        }
+        .deselected {
+            animation: deselectFade 0.4s ease-out;
+        }
+        @keyframes deselectFade {
+            0% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
         .trip-info {
             background: var(--white);
@@ -265,7 +304,7 @@
                 } else {
                     sq.onclick = () => toggleSquare(num, sq, i);
                     if (reservations[num]) {
-                        sq.classList.add('reserved');
+                        sq.classList.add('selected');
                         const nameSpan = document.createElement('div');
                         nameSpan.className = 'name';
                         nameSpan.textContent = reservations[num];
@@ -280,12 +319,17 @@
         function toggleSquare(num, sq, index) {
             if (reservations[num]) {
                 delete reservations[num];
-                sq.classList.remove('reserved');
-                sq.innerHTML = '';
-                const amountSpan = document.createElement('div');
-                amountSpan.className = 'amount';
-                amountSpan.textContent = `$${num}`;
-                sq.appendChild(amountSpan);
+                sq.classList.remove('selected');
+                sq.classList.add('deselected');
+                setTimeout(() => {
+                    sq.classList.remove('deselected');
+                    sq.innerHTML = '';
+                    const amountSpan = document.createElement('div');
+                    amountSpan.className = 'amount';
+                    amountSpan.textContent = `$${num}`;
+                    sq.appendChild(amountSpan);
+                    sq.className = `square ${colors[index]}`;
+                }, 400);
             } else {
                 if (!currentName) {
                     currentName = prompt('Enter your name:');
@@ -293,7 +337,7 @@
                     localStorage.setItem('currentName', currentName);
                 }
                 reservations[num] = currentName;
-                sq.classList.add('reserved');
+                sq.classList.add('selected');
                 sq.innerHTML = '';
                 const amountSpan = document.createElement('div');
                 amountSpan.className = 'amount';
