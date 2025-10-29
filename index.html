@@ -31,54 +31,58 @@
             background: var(--bg);
             color: var(--text);
             margin: 0;
-            padding: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
+            flex: 1;
         }
         h1, h2, h3 {
             margin: 0.5em 0;
             font-weight: 700;
         }
-        h1 { font-size: 2rem; color: var(--primary); }
-        h2 { font-size: 1.5rem; }
-        h3 { font-size: 1.25rem; color: #4b5563; }
+        h1 { font-size: 1.8rem; color: var(--primary); }
+        h2 { font-size: 1.4rem; }
+        h3 { font-size: 1.1rem; color: #4b5563; }
         .progress-container {
             width: 100%;
             background: var(--light);
             border-radius: var(--radius);
             overflow: hidden;
-            margin: 20px 0;
+            margin: 16px 0;
             box-shadow: var(--shadow);
         }
         .progress-bar {
-            height: 32px;
+            height: 28px;
             background: var(--success);
             color: white;
             text-align: right;
-            padding: 0 12px;
-            line-height: 32px;
+            padding: 0 10px;
+            line-height: 28px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: width 0.4s ease;
         }
         #goal {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--text);
-            margin: 8px 0 16px;
+            margin: 6px 0 12px;
         }
         .instructions {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #6b7280;
-            margin: 16px 0;
+            margin: 12px 0;
         }
         button {
-            padding: 12px 20px;
-            font-size: 1rem;
+            padding: 10px 16px;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin: 8px;
+            margin: 6px;
             border: none;
             border-radius: var(--radius);
             cursor: pointer;
@@ -90,35 +94,67 @@
             color: white;
         }
         button.clear:hover { background: #dc2626; }
-        .payment-buttons button {
+        button.clear-small {
+            padding: 5px 10px;
+            font-size: 0.75rem;
+            margin: 6px auto;
+            display: block;
+            width: fit-content;
+        }
+        .payment-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px 0;
+        }
+        .payment-row button {
+            flex: 1;
+            min-width: 120px;
             background: var(--primary);
             color: white;
-            flex: 1;
-            min-width: 140px;
         }
-        .payment-buttons button:hover {
+        .payment-row button:hover {
             background: #1d4ed8;
             transform: translateY(-1px);
         }
-        .payment-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin: 24px 0;
-        }
-        #total, #pledge-total {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--primary);
+        .payment-email {
             margin: 16px 0;
+        }
+        .payment-email button {
+            background: #6b7280;
+            color: white;
+            width: 70%;
+            max-width: 320px;
+            margin: 0 auto;
+            display: block;
+        }
+        .payment-email button:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
+        }
+        .pledge-header {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 16px 0 4px;
+        }
+        .pledge-amount {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0 0 2px;
+        }
+        .pledge-count {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin: 0 0 10px;
         }
         .grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 8px;
-            max-width: 360px;
-            margin: 24px auto;
+            max-width: 380px;
+            margin: 6px auto;
             padding: 16px;
             background: var(--white);
             border-radius: var(--radius);
@@ -126,7 +162,7 @@
         }
         .square {
             width: 100%;
-            height: 60px;
+            height: 64px;
             border: none;
             border-radius: var(--radius);
             display: flex;
@@ -146,7 +182,7 @@
         }
         .square .amount {
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
         }
         .square .name {
             font-size: 10px;
@@ -169,222 +205,294 @@
             animation: selectPulse 0.6s ease-out;
         }
         @keyframes selectPulse {
-            0% {
-                transform: scale(1);
-                border-color: var(--selected-border);
-                box-shadow: 0 0 0 1px var(--selected-border);
-            }
-            50% {
-                transform: scale(1.05);
-                border-color: #fca5a5;
-                box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.3);
-            }
-            100% {
-                transform: scale(1);
-                border-color: var(--selected-border);
-                box-shadow: 0 0 0 1px var(--selected-border);
-            }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.3); }
+            100% { transform: scale(1); }
         }
         .deselected {
             animation: deselectFade 0.4s ease-out;
         }
         @keyframes deselectFade {
-            0% {
-                transform: scale(1.05);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
-        .trip-info {
+        .trip-info, .sponsors {
             background: var(--white);
-            padding: 24px;
+            padding: 20px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            margin: 32px 0;
+            margin: 28px 0;
             text-align: left;
-            font-size: 1rem;
+            font-size: 0.9rem;
             line-height: 1.6;
             color: #4b5563;
         }
-        .trip-info h3 {
+        .trip-info h3, .sponsors h3 {
             text-align: center;
             color: var(--primary);
             margin-top: 0;
+            font-size: 1.1rem;
         }
-        @media (max-width: 500px) {
-            .grid { gap: 6px; padding: 12px; }
-            .square { height: 55px; font-size: 12px; }
-            .square .amount { font-size: 13px; }
-            button { padding: 10px 16px; font-size: 0.9rem; }
+        .sponsor-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0;
+            font-size: 0.95rem;
+        }
+        .sponsor-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .sponsor-list li:last-child {
+            border-bottom: none;
+        }
+        .footer-sponsors {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.25rem; }
+            h3 { font-size: 1rem; }
+            .progress-bar { height: 24px; font-size: 0.8rem; padding: 0 8px; line-height: 24px; }
+            #goal { font-size: 1rem; }
+            .instructions { font-size: 0.85rem; }
+            .pledge-header { font-size: 1.1rem; }
+            .pledge-amount { font-size: 1.4rem; }
+            .pledge-count { font-size: 0.75rem; }
+            button { padding: 8px 12px; font-size: 0.85rem; }
+            button.clear-small { padding: 4px 8px; font-size: 0.7rem; }
+            .payment-row button { min-width: 100px; padding: 8px 12px; font-size: 0.8rem; }
+            .payment-email button { width: 85%; padding: 8px 12px; font-size: 0.8rem; }
+            .grid { gap: 6px; padding: 12px; max-width: 100%; }
+            .square { height: 54px; font-size: 12px; }
+            .square .amount { font-size: 14px; }
+            .square .name { font-size: 9px; }
+            .trip-info, .sponsors { padding: 16px; font-size: 0.85rem; }
+            .trip-info h3, .sponsors h3 { font-size: 1rem; }
+        }
+        @media (max-width: 360px) {
+            .grid { grid-template-columns: repeat(4, 1fr); }
+            .square { height: 50px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Epiphany Cathedral Catholic School</h1>
-        <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
-        <h3>Class of 2026</h3>
-        <div class="progress-container">
-            <div id="progress-bar" class="progress-bar" style="width: 48%;">$620</div>
-        </div>
-        <div id="goal">Fundraising Goal: $1275</div>
-        <div class="instructions">Click one or more blue & yellow squares to choose your donation amount. Then choose a payment method below the grid.</div>
-        <button class="clear" onclick="clearAll()">Clear My Selections (Start Over)</button>
-        <div id="total">Total of my pledges: 0 squares ($0)</div>
-        <div class="grid" id="grid"></div>
-        <div id="pledge-total">Total of my pledges: 0 squares ($0)</div>
-        <div class="payment-buttons">
-            <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + calculateTotal() + '&note=EpiphanyFundraiser-Square' + getReservedSquares(), '_blank')">Pay with Venmo</button>
-            <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + getReservedSquares() + '%0A- Total%20Value: $' + calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
-            <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + calculateTotal() + '.\nNote: EpiphanyFundraiser-Square' + getReservedSquares())">Pay with Zelle</button>
-        </div>
-        <div class="trip-info">
-            <h3>About Josie's Seacamp Adventure</h3>
-            <p>Join Josie on an exciting marine science adventure at Seacamp in Big Pine Key, FL! This trip is a unique opportunity for young people to study and live alongside wildlife in the Florida Keys. Through hands-on activities like snorkeling, SCUBA, and sailing, Josie will explore vibrant ecosystems and get closer than ever to marine life. As Seacamp describes, “Our unique program blends hands-on marine science with adventure, allowing campers to explore the Florida Keys’ ecosystems.” Your support helps make this unforgettable educational experience possible!</p>
-        </div>
-    </div>
+    <div class="container" id="app"></div>
 
-    <script>
-        const squares = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];
-        const colors = ['blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow','blue','yellow'];
-        let reservations = JSON.parse(localStorage.getItem('reservations')) || {};
-        let currentName = localStorage.getItem('currentName') || null;
-        const takenSquares = [
-            { num: 25, name: 'Cami' },
-            { num: 1, name: 'Coleen' },
-            { num: 24, name: 'Coleen' },
-            { num: 15, name: 'Jorge' },
-            { num: 17, name: 'Jorge' },
-            { num: 18, name: 'Jorge' },
-            { num: 35, name: 'Jorge' },
-            { num: 11, name: 'Juli' },
-            { num: 23, name: 'Gail' },
-            { num: 50, name: 'Tio & Tia' },
-            { num: 49, name: 'Tio & Tia' },
-            { num: 48, name: 'Tio & Tia' },
-            { num: 47, name: 'Tio & Tia' },
-            { num: 46, name: 'Tio & Tia' },
-            { num: 45, name: 'Tio & Tia' },
-            { num: 44, name: 'Tio & Tia' },
-            { num: 43, name: 'Tio & Tia' },
-            { num: 28, name: 'Tio & Tia' },
-            { num: 42, name: 'Scott' },
-            { num: 20, name: 'Eric' },
-            { num: 8, name: 'Anthony' },
-            { num: 7, name: 'Anthony' },
-            { num: 5, name: 'Anthony' },
-            { num: 6, name: 'Chris' },
-            { num: 3, name: 'Chris' },
-            { num: 1, name: 'Chris' }
-        ];
-        const FUNDRAISING_GOAL = 1275;
+    <script type="module">
+        // Config
+        const CONFIG = {
+            goal: 1275,
+            squares: Array.from({length: 50}, (_, i) => i + 1),
+            colors: Array(50).fill().map((_, i) => i % 2 === 0 ? 'blue' : 'yellow'),
+            takenSquares: [
+                { num: 25, name: 'Cami' },
+                { num: 4, name: 'Coleen' },
+                { num: 21, name: 'Coleen' },
+                { num: 16, name: 'Jorge' },
+                { num: 19, name: 'Jorge' },
+                { num: 15, name: 'Jorge' },
+                { num: 11, name: 'Juli' },
+                { num: 23, name: 'Gail' },
+                { num: 50, name: 'Tio & Tia' },
+                { num: 49, name: 'Tio & Tia' },
+                { num: 48, name: 'Tio & Tia' },
+                { num: 47, name: 'Tio & Tia' },
+                { num: 46, name: 'Tio & Tia' },
+                { num: 45, name: 'Tio & Tia' },
+                { num: 44, name: 'Tio & Tia' },
+                { num: 43, name: 'Tio & Tia' },
+                { num: 28, name: 'Tio & Tia' },
+                { num: 42, name: 'Scott' },
+                { num: 20, name: 'Eric' },
+                { num: 8, name: 'Anthony' },
+                { num: 7, name: 'Anthony' },
+                { num: 5, name: 'Anthony' },
+                { num: 9, name: 'Chris' },
+                { num: 1, name: 'Chris' }
+            ],
+            sponsors: [
+                { name: 'Anthony', amount: 20 },
+                { name: 'Cami', amount: 25 },
+                { name: 'Chris', amount: 10 },
+                { name: 'Coleen', amount: 25 },
+                { name: 'Eric', amount: 20 },
+                { name: 'Gail', amount: 23 },
+                { name: 'Jorge', amount: 50 },
+                { name: 'Juli', amount: 11 },
+                { name: 'Scott', amount: 42 },
+                { name: 'Tio & Tia', amount: 400 }
+            ].sort((a, b) => a.name.localeCompare(b.name))
+        };
 
-        function initGrid() {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = '';
-            squares.forEach((num, i) => {
-                const sq = document.createElement('div');
-                sq.className = `square ${colors[i]}`;
-                const amountSpan = document.createElement('div');
-                amountSpan.className = 'amount';
-                amountSpan.textContent = `$${num}`;
-                sq.appendChild(amountSpan);
+        // State
+        let state = {
+            reservations: JSON.parse(localStorage.getItem('reservations')) || {},
+            currentName: localStorage.getItem('currentName') || null
+        };
+
+        // DOM Elements
+        const elements = {
+            app: document.getElementById('app'),
+            progressBar: null,
+            totalAmount: null,
+            totalCount: null,
+            pledgeAmount: null,
+            pledgeCount: null
+        };
+
+        // Render Functions
+        const renderHeader = () => `
+            <h1>Epiphany Cathedral Catholic School</h1>
+            <h2>Josie's 8th Grade Class Trip Fundraiser</h2>
+            <h3>Class of 2026</h3>
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar" style="width: 0%;">$0</div>
+            </div>
+            <div id="goal">Fundraising Goal: $${CONFIG.goal}</div>
+            <div class="instructions">Click one or more blue & yellow squares to choose your donation amount. Then choose a payment method below the grid.</div>
+        `;
+
+        const renderPledgeSection = (idPrefix) => `
+            <div class="pledge-header">My Current Pledge Total</div>
+            <div class="pledge-amount" id="${idPrefix}-amount">$0</div>
+            <div class="pledge-count" id="${idPrefix}-count">0 squares selected</div>
+            <button class="clear clear-small" onclick="Fundraiser.clearAll()">Clear My Selections</button>
+        `;
+
+        const renderGrid = () => {
+            let html = '<div class="grid" id="grid">';
+            CONFIG.squares.forEach((num, i) => {
+                const color = CONFIG.colors[i];
+                const taken = CONFIG.takenSquares.find(s => s.num === num);
+                const reserved = state.reservations[num];
+                const isTaken = !!taken;
+                const isReserved = !!reserved;
                 
-                const taken = takenSquares.find(square => square.num === num);
-                if (taken) {
-                    sq.classList.add('reserved');
-                    const nameSpan = document.createElement('div');
-                    nameSpan.className = 'name';
-                    nameSpan.textContent = taken.name;
-                    sq.appendChild(nameSpan);
-                    sq.onclick = null;
-                } else {
-                    sq.onclick = () => toggleSquare(num, sq, i);
-                    if (reservations[num]) {
-                        sq.classList.add('selected');
-                        const nameSpan = document.createElement('div');
-                        nameSpan.className = 'name';
-                        nameSpan.textContent = reservations[num];
-                        sq.appendChild(nameSpan);
-                    }
-                }
-                grid.appendChild(sq);
+                html += `<div class="square ${color} ${isTaken ? 'reserved' : ''} ${isReserved ? 'selected' : ''}" 
+                    ${isTaken ? '' : `onclick="Fundraiser.toggleSquare(${num}, this, ${i})"`}>
+                    <div class="amount">$${num}</div>
+                    ${isTaken || isReserved ? `<div class="name">${taken ? taken.name : reserved}</div>` : ''}
+                </div>`;
             });
-            updateTotal();
-        }
+            html += '</div>';
+            return html;
+        };
 
-        function toggleSquare(num, sq, index) {
-            if (reservations[num]) {
-                delete reservations[num];
-                sq.classList.remove('selected');
-                sq.classList.add('deselected');
-                setTimeout(() => {
-                    sq.classList.remove('deselected');
-                    sq.innerHTML = '';
-                    const amountSpan = document.createElement('div');
-                    amountSpan.className = 'amount';
-                    amountSpan.textContent = `$${num}`;
-                    sq.appendChild(amountSpan);
-                    sq.className = `square ${colors[index]}`;
-                }, 400);
-            } else {
-                if (!currentName) {
-                    currentName = prompt('Enter your name:');
-                    if (!currentName) return;
-                    localStorage.setItem('currentName', currentName);
+        const renderPayment = () => `
+            <div class="payment-row">
+                <button onclick="window.open('https://venmo.com/?txn=pay&recipients=@rogerandcherienavarro&amount=' + Fundraiser.calculateTotal() + '&note=EpiphanyFundraiser-Square' + Fundraiser.getReservedSquares(), '_blank')">Pay with Venmo</button>
+                <button onclick="alert('Please send Zelle payment to (206) 619-7741 for $' + Fundraiser.calculateTotal() + '.\\nNote: EpiphanyFundraiser-Square' + Fundraiser.getReservedSquares())">Pay with Zelle</button>
+            </div>
+            <div class="payment-email">
+                <button onclick="window.location.href='mailto:navarrofamily@gmail.com?subject=Josie%27s%20Seacamp%20Trip&body=Thank%20you,%20' + encodeURIComponent(Fundraiser.state.currentName || 'Supporter') + ',%20for%20supporting%20Josie%27s%208th%20Grade%20Class%20Trip%20to%20Seacamp!%0A%0AYou%20are%20pledging:%0A- Squares: ' + Fundraiser.getReservedSquares() + '%0A- Total%20Value: $' + Fundraiser.calculateTotal() + '%0A%0APlease%20send%20this%20email,%20and%20we%20will%20work%20with%20you%20offline%20to%20complete%20the%20donation.'">Email Roger and Cherie</button>
+            </div>
+        `;
+
+        const renderTripInfo = () => `
+            <div class="trip-info">
+                <h3>About Josie's Seacamp Adventure</h3>
+                <p>Join Josie on an exciting marine science adventure at Seacamp in Big Pine Key, FL! This trip is a unique opportunity for young people to study and live alongside wildlife in the Florida Keys. Through hands-on activities like snorkeling, SCUBA, and sailing, Josie will explore vibrant ecosystems and get closer than ever to marine life. As Seacamp describes, “Our unique program blends hands-on marine science with adventure, allowing campers to explore the Florida Keys’ ecosystems.” Your support helps make this unforgettable educational experience possible!</p>
+            </div>
+        `;
+
+        const renderSponsors = () => {
+            let html = '<div class="sponsors footer-sponsors"><h3>Thank You to Our Sponsors</h3><ul class="sponsor-list">';
+            CONFIG.sponsors.forEach(s => {
+                html += `<li><strong>${s.name}</strong> - $${s.amount}</li>`;
+            });
+            html += '</ul></div>';
+            return html;
+        };
+
+        const render = () => {
+            elements.app.innerHTML = `
+                ${renderHeader()}
+                ${renderPledgeSection('total')}
+                ${renderGrid()}
+                ${renderPledgeSection('pledge')}
+                ${renderPayment()}
+                ${renderTripInfo()}
+                ${renderSponsors()}
+            `;
+            
+            elements.progressBar = document.getElementById('progress-bar');
+            elements.totalAmount = document.getElementById('total-amount');
+            elements.totalCount = document.getElementById('total-count');
+            elements.pledgeAmount = document.getElementById('pledge-amount');
+            elements.pledgeCount = document.getElementById('pledge-count');
+            
+            Fundraiser.updateTotal();
+        };
+
+        // Fundraiser Module
+        const Fundraiser = {
+            state,
+            
+            calculateTotal() {
+                return Object.keys(this.state.reservations).reduce((sum, num) => sum + parseInt(num), 0);
+            },
+            
+            getReservedSquares() {
+                return Object.keys(this.state.reservations).join(',') || 'None';
+            },
+            
+            updateTotal() {
+                const total = this.calculateTotal();
+                const count = Object.keys(this.state.reservations).length;
+                const claimedTotal = CONFIG.takenSquares.reduce((sum, s) => sum + s.num, 0);
+                const percent = Math.round((claimedTotal / CONFIG.goal) * 100);
+                
+                if (elements.progressBar) {
+                    elements.progressBar.style.width = `${percent}%`;
+                    elements.progressBar.textContent = `$${claimedTotal}`;
                 }
-                reservations[num] = currentName;
-                sq.classList.add('selected');
-                sq.innerHTML = '';
-                const amountSpan = document.createElement('div');
-                amountSpan.className = 'amount';
-                amountSpan.textContent = `$${num}`;
-                sq.appendChild(amountSpan);
-                const nameSpan = document.createElement('div');
-                nameSpan.className = 'name';
-                nameSpan.textContent = currentName;
-                sq.appendChild(nameSpan);
+                if (elements.totalAmount) elements.totalAmount.textContent = `$${total}`;
+                if (elements.totalCount) elements.totalCount.textContent = `${count} square${count !== 1 ? 's' : ''} selected`;
+                if (elements.pledgeAmount) elements.pledgeAmount.textContent = `$${total}`;
+                if (elements.pledgeCount) elements.pledgeCount.textContent = `${count} square${count !== 1 ? 's' : ''} selected`;
+            },
+            
+            toggleSquare(num, el, index) {
+                if (this.state.reservations[num]) {
+                    delete this.state.reservations[num];
+                    el.classList.remove('selected');
+                    el.classList.add('deselected');
+                    setTimeout(() => {
+                        el.classList.remove('deselected');
+                        el.innerHTML = `<div class="amount">$${num}</div>`;
+                        el.className = `square ${CONFIG.colors[index]}`;
+                    }, 400);
+                } else {
+                    if (!this.state.currentName) {
+                        this.state.currentName = prompt('Enter your name:');
+                        if (!this.state.currentName) return;
+                        localStorage.setItem('currentName', this.state.currentName);
+                    }
+                    this.state.reservations[num] = this.state.currentName;
+                    el.classList.add('selected');
+                    el.innerHTML = `<div class="amount">$${num}</div><div class="name">${this.state.currentName}</div>`;
+                }
+                localStorage.setItem('reservations', JSON.stringify(this.state.reservations));
+                this.updateTotal();
+            },
+            
+            clearAll() {
+                if (confirm('This will clear your current selections.')) {
+                    this.state.reservations = {};
+                    this.state.currentName = null;
+                    localStorage.removeItem('reservations');
+                    localStorage.removeItem('currentName');
+                    render();
+                }
             }
-            localStorage.setItem('reservations', JSON.stringify(reservations));
-            updateTotal();
-        }
+        };
 
-        function calculateTotal() {
-            const reserved = Object.keys(reservations).map(Number);
-            return reserved.reduce((sum, num) => sum + num, 0) || 0;
-        }
-
-        function getReservedSquares() {
-            return Object.keys(reservations).map(Number).join(',') || 'None';
-        }
-
-        function updateTotal() {
-            const reserved = Object.keys(reservations).map(Number);
-            const total = reserved.reduce((sum, num) => sum + num, 0) || 0;
-            document.getElementById('total').textContent = `Total of my pledges: ${reserved.length} squares ($${total})`;
-            document.getElementById('pledge-total').textContent = `Total of my pledges: ${reserved.length} squares ($${total})`;
-            const claimed = takenSquares.map(square => square.num);
-            const claimedTotal = claimed.reduce((sum, num) => sum + num, 0) || 0;
-            const progressPercent = Math.round((claimedTotal / FUNDRAISING_GOAL) * 100);
-            const progressBar = document.getElementById('progress-bar');
-            progressBar.style.width = `${progressPercent}%`;
-            progressBar.textContent = `$${claimedTotal}`;
-        }
-
-        function clearAll() {
-            if (confirm('Clear all reservations?')) {
-                reservations = {};
-                currentName = null;
-                localStorage.removeItem('reservations');
-                localStorage.removeItem('currentName');
-                initGrid();
-            }
-        }
-
-        initGrid();
+        // Initialize
+        window.Fundraiser = Fundraiser;
+        render();
     </script>
 </body>
 </html>
