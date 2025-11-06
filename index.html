@@ -24,6 +24,7 @@
             --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             --radius: 12px;
             --selected-border: #ef4444;
+            --reserved-text: #6b7280;
         }
         body {
             font-family: 'Poppins', sans-serif;
@@ -193,9 +194,16 @@
         .yellow { background: var(--secondary); color: #1f2937; }
         .reserved {
             background: var(--white);
-            color: var(--text);
+            color: var(--reserved-text);
             cursor: not-allowed;
             border: 2px solid #e5e7eb;
+        }
+        .reserved .amount {
+            font-size: 12px;
+        }
+        .reserved .name {
+            font-size: 13px;
+            font-weight: 700;
         }
         .selected {
             background: var(--white);
@@ -269,6 +277,8 @@
             .square { height: 54px; font-size: 12px; }
             .square .amount { font-size: 14px; }
             .square .name { font-size: 9px; }
+            .reserved .amount { font-size: 11px; }
+            .reserved .name { font-size: 12px; }
             .trip-info, .sponsors { padding: 16px; font-size: 0.85rem; }
             .trip-info h3, .sponsors h3 { font-size: 1rem; }
         }
